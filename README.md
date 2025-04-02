@@ -3,6 +3,11 @@
 This repository provides a structured overview of **Domain-Driven Design (DDD)**, from fundamental concepts to more advanced topics. 
 The goal is to create a concise and practical personal reference, and also to help others developers to understand and apply DDD principles effectively.
 
+# Table of contents
+1. [Introduction](#introduction)
+2. [Domains and Subdomains](#paragraph1)
+
+<a name="introduction"></a>
 ## Introduction to DDD
 Domain-Driven Design (DDD) is a software development philosophy that emphasizes the importance of understanding and modeling the business domain. 
 It is a strategy aimed at improving the quality of software by aligning it more closely with the business needs it serves.
@@ -17,6 +22,7 @@ This shared vocabulary ensures that software accurately reflects the business do
 When properly applied, DDD leads to software abstractions called domain models that encapsulate complex business logic. 
 These models serve as a bridge between technical implementation and business requirements, resulting in systems that are not only technically sound but also meaningful from a business perspective.
 
+<a name="paragraph1"></a>
 ## Domains and Subdomains - What are they?
 
 ### Domains
