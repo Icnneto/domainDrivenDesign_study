@@ -4,8 +4,11 @@ This repository provides a structured overview of **Domain-Driven Design (DDD)**
 The goal is to create a concise and practical personal reference, and also to help others developers to understand and apply DDD principles effectively.
 
 # Table of contents
-1. [Introduction](#introduction)
-2. [Domains and Subdomains](#paragraph1)
+1. [Introduction](#introduction)  
+2. [Domains and Subdomains](#paragraph1)  
+   2.1. [Domains](#subparagraph1)  
+   2.2. [Subdomains](#subparagraph1.1)
+3. [Domain Storytelling](#paragraph2)
 
 <a name="introduction"></a>
 ## Introduction to DDD
@@ -25,6 +28,7 @@ These models serve as a bridge between technical implementation and business req
 <a name="paragraph1"></a>
 ## Domains and Subdomains - What are they?
 
+<a name="subparagraph1"></a>
 ### Domains
 In Domain-Driven Design (DDD), the domain represents the sphere of knowledge, influence, or activity around which the application is built. It's not just the business core, but encompasses the problems the business is trying to solve, the specialized knowledge the business has developed, and the language experts use when discussing these problems.
 
@@ -37,6 +41,7 @@ The domain includes both the problem space and the specialized knowledge
 - It highlights the importance of the ubiquitous language that bridges technical and business concerns
 - It acknowledges that the domain provides context and meaning for all technical decisions
 
+<a name="subparagraph1.1"></a>
 ### Subdomains
 Subdomains are logical partitions of your overall domain. They represent different business capabilities or concerns within your organization. 
 
@@ -80,6 +85,7 @@ Generic subdomains are necessary business functions that don't differ significan
 
 **Example**: For Netflix might include `billing systems, authentication.`
 
+<a name="paragraph2"></a>
 ## Domain Storytelling
 Domain Storytelling is a collaborative approach to understanding business domains. 
 At its core, it recognizes that every domain has its own journey, and there's no better way to understand what needs to be done than by telling the story of what happens within that domain.
