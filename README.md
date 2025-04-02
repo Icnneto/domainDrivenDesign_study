@@ -23,6 +23,7 @@ These models serve as a bridge between technical implementation and business req
 In Domain-Driven Design (DDD), the domain represents the sphere of knowledge, influence, or activity around which the application is built. It's not just the business core, but encompasses the problems the business is trying to solve, the specialized knowledge the business has developed, and the language experts use when discussing these problems.
 
 "In Domain-Driven Design, the 'domain' represents the specific business problem space and associated knowledge that the software aims to address. It encapsulates the core business concepts, rules, processes, and relationships that define the organization's area of expertise. The domain is the 'why' behind the software's existence and provides the shared language (ubiquitous language) that connects technical implementation to business reality. Without a clear understanding of the domain, software risks becoming disconnected from the actual business needs it intends to serve."
+
 Key aspects that strengthen this definition:
 
 The domain includes both the problem space and the specialized knowledge
@@ -31,12 +32,47 @@ The domain includes both the problem space and the specialized knowledge
 - It acknowledges that the domain provides context and meaning for all technical decisions
 
 ### Subdomains
+Subdomains are logical partitions of your overall domain. They represent different business capabilities or concerns within your organization. 
+
+Each subdomain:
+- Has its own specialized language and concepts
+- Addresses a specific aspect of the business
+- Can often be assigned to a dedicated team
+- May have different strategic importance to the business
 
 #### 1. Core Subdomains
+Core subdomains **represent the business's competitive advantage and strategic differentiators**.
+
+**Characteristics**:
+- Directly related to the organization's primary business function
+- Create unique value and set the business apart from competitors
+- Require significant domain expertise
+- Usually demand custom development and substantial investment
+- Most critical to business success
+
+**Example**: For Netflix the `videos and algorithms recommendation`, and for DHL, the `logistics and package tracking systems.`
+
 #### 2. Supporting Subdomains
+Supporting subdomains are necessary for the business to function but don't provide competitive advantage by themselves.
+
+**Characteristics**:
+- Tailored to the specific business's needs
+- Necessary for core subdomains to operate effectively
+- Require some domain knowledge and customization
+- Important but not as critical as core subdomains
+
+**Example**: For Netflix might be `content licensing management and user profile management` - those are necessary but not a primary differentiator.
+
 #### 3. Generic Subdomains
+Generic subdomains are necessary business functions that don't differ significantly across companies in the industry.
 
+**Characteristics**:
+- Common across many businesses
+- Don't require specialized knowledge specific to your business
+- Can often be satisfied with off-the-shelf solutions or outsourcing
+- Necessary but provide little competitive advantage
 
+**Example**: For Netflix might include `billing systems, authentication.`
 
 #### References
 - **https://redis.io/glossary/domain-driven-design-ddd/**
