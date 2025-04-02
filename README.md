@@ -4,11 +4,14 @@ This repository provides a structured overview of **Domain-Driven Design (DDD)**
 The goal is to create a concise and practical personal reference, and also to help others developers to understand and apply DDD principles effectively.
 
 # Table of contents
-1. [Introduction](#introduction)  
-2. [Domains and Subdomains](#paragraph1)  
-   2.1. [Domains](#subparagraph1)  
-   2.2. [Subdomains](#subparagraph1.1)
-3. [Domain Storytelling](#paragraph2)
+- [Introduction](#introduction)  
+- [Domains and Subdomains](#section1)  
+   - [Domains](#section1.1)  
+   - [Subdomains](#section1.2)
+- [Domain Storytelling](#section2)
+   - [Roles](#section2.1)
+   - [Work Team](#section2.2)
+- [Ubiquitous Language](#section3)
 
 <a name="introduction"></a>
 ## Introduction to DDD
@@ -25,10 +28,10 @@ This shared vocabulary ensures that software accurately reflects the business do
 When properly applied, DDD leads to software abstractions called domain models that encapsulate complex business logic. 
 These models serve as a bridge between technical implementation and business requirements, resulting in systems that are not only technically sound but also meaningful from a business perspective.
 
-<a name="paragraph1"></a>
+<a name="section1"></a>
 ## Domains and Subdomains - What are they?
 
-<a name="subparagraph1"></a>
+<a name="section1.1"></a>
 ### Domains
 In Domain-Driven Design (DDD), the domain represents the sphere of knowledge, influence, or activity around which the application is built. It's not just the business core, but encompasses the problems the business is trying to solve, the specialized knowledge the business has developed, and the language experts use when discussing these problems.
 
@@ -41,7 +44,7 @@ The domain includes both the problem space and the specialized knowledge
 - It highlights the importance of the ubiquitous language that bridges technical and business concerns
 - It acknowledges that the domain provides context and meaning for all technical decisions
 
-<a name="subparagraph1.1"></a>
+<a name="section1.2"></a>
 ### Subdomains
 Subdomains are logical partitions of your overall domain. They represent different business capabilities or concerns within your organization. 
 
@@ -85,7 +88,7 @@ Generic subdomains are necessary business functions that don't differ significan
 
 **Example**: For Netflix might include `billing systems, authentication.`
 
-<a name="paragraph2"></a>
+<a name="section2"></a>
 ## Domain Storytelling
 Domain Storytelling is a collaborative approach to understanding business domains. 
 At its core, it recognizes that every domain has its own journey, and there's no better way to understand what needs to be done than by telling the story of what happens within that domain.
@@ -102,6 +105,7 @@ Domain Storytelling is particularly valuable because it:
 
 This collaborative technique is essential for designing software that truly addresses business needs, as it ensures we understand the domain before implementing solutions.
 
+<a name="section2.1"></a>
 ### Roles
 #### 1. Actors
 An actor in Domain Storytelling may be a person, a group of people, an organization, a system, or even a physical object that participates in the domain activities.
@@ -133,6 +137,7 @@ Groups represent a part (or slice) of the storytelling that shares the same attr
 
 For example, they can be defined by repetitive actions, subdomains, or process limitations.
 
+<a name="section2.2"></a>
 ### Work Team
 Now that we've understood the main roles that exists in the process of implementing a Domain Storytelling, let's move on to the next step: putting it into practice.
 
@@ -145,7 +150,27 @@ A suggested team composition is as follows:
 - **Moderator**: The person who will guide the conversations, structuring questions logically and keeping the discussion aligned with the intended goals.
 - **Modeler**: The one responsible for creating the story in a pictographic language and making the necessary annotations.
 
+<a name="section3"></a>
+## Ubiquitous Language
+Ubiquitous Language is a core concept in Domain-Driven Design (DDD) that serves as a shared language between technical and non-technical team members. It's essentially a carefully crafted, consistent vocabulary that:
+
+- Provides a common language
+- Is composed organically as key concepts emerge
+- Bridges business requirements and technical implementation
+- Breaks down information silos
+
+What makes it special is that this language isn't just for meetings - it literally shapes the code. Class names, method names, and variables in your codebase directly mirror the terms experts use when discussing the domain. This creates a seamless translation between business concepts and technical implementation.
+
+A strong Ubiquitous Language evolves over time through continuous conversation and refinement. When a term becomes ambiguous or inadequate, the team works to clarify it, ensuring the language stays precise and valuable.
+
+>As we progress through project planning and execution, a linguistic divide often arises. Business partners have limited understanding of technical jargon but they use the jargon of their field while expressing requirements. IT partners translate these requirements into a technical design. Some important concepts can become lost in the translation, resulting in vague requirements. As development progresses, the linguistic divide can grow as the technical implementation becomes set in stone. The problem domain begins to lose some of its expressiveness. — Eric Evans, Domain Driven Design
+
+#### 1. Ambiguous Terms
+
+#### 2. Synonyms Terms
+
 #### References
+- **https://medium.com/@johnboldt_53034/domain-driven-design-the-ubiquitous-language-4f516a385ca4**
 - **https://redis.io/glossary/domain-driven-design-ddd/**
 - **https://medium.com/nick-tune-tech-strategy-blog/domains-subdomain-problem-solution-space-in-ddd-clearly-defined-e0b49c7b586c**
 
