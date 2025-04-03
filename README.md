@@ -12,6 +12,9 @@ The goal is to create a concise and practical personal reference, and also to he
    - [Roles](#section2.1)
    - [Work Team](#section2.2)
 - [Ubiquitous Language](#section3)
+- [Domain Model](#section4)
+- [Bounded Context](#section5)
+- [References](#references)
 
 <a name="introduction"></a>
 ## Introduction to DDD
@@ -166,10 +169,31 @@ A strong Ubiquitous Language evolves over time through continuous conversation a
 >As we progress through project planning and execution, a linguistic divide often arises. Business partners have limited understanding of technical jargon but they use the jargon of their field while expressing requirements. IT partners translate these requirements into a technical design. Some important concepts can become lost in the translation, resulting in vague requirements. As development progresses, the linguistic divide can grow as the technical implementation becomes set in stone. The problem domain begins to lose some of its expressiveness. — Eric Evans, Domain Driven Design
 
 #### 1. Ambiguous Terms
+Within a subdomain, we can have the same term with multiple meanings. For example, "policy" could mean a regulatory law or an internal school rule. In Ubiquitous Language, we need a clear definition for each term, so we might decide that "policy" will be used for both meanings, but with clear context.
 
 #### 2. Synonyms Terms
+Within a subdomain, we sometimes use a single term to refer to multiple concepts that actually have different details. For example, in IT we often use "login" to refer both to the act of authenticating in a system and to reference the user's account - which are completely different things that we've given the same name for convenience. In Ubiquitous Language, whenever possible, we should break these terms apart and give them unique, specific definitions to avoid future problems
 
+<a name="section4"></a>
+## Domain Model
+When creating a Domain Model, we're designing an abstraction of a process to solve a specific problem. This documentation is essential for productive conversations with Domain Experts, helping us extract everything needed to understand the problem thoroughly. The Ubiquitous Language we establish is a crucial step in aligning communication between all parties.
+
+The resulting model translates directly into software components—typically as classes with attributes defining object instances and methods that operate on them. This creates a powerful bridge of understanding between all stakeholders: business experts see their domain accurately reflected, while developers have clear blueprints for implementation.
+
+<a name="section5"></a>
+## Bounded Context
+Bounded Context is a fundamental pattern in the strategic design section of Domain-Driven Design (DDD). It addresses the challenge of working with large, complex domain models by dividing them into distinct, well-defined contexts based on business intentions.
+
+These contexts establish clear boundaries around where specific domain models apply. Within each bounded context, terms and concepts have precise, consistent meanings—a single entity might exist across multiple contexts but with different attributes and behaviors relevant to each context's specific business needs.
+
+There's no fixed rule for determining the appropriate size of a bounded context—this requires careful architectural analysis. Ubiquitous language serves as an excellent metric for making these decisions: if terminology remains consistent across potential contexts and business processes are handled similarly, combining them might make sense. Conversely, if they differ significantly, separation allows for independent implementation without interference.
+
+Bounded contexts enable teams to work on different parts of a complex system with clear boundaries, creating focused models that precisely serve their specific business purposes while explicitly defining relationships between contexts
+
+<a name="references"></a>
 #### References
+- **https://www.eduardopires.net.br/2016/03/ddd-bounded-context/**
+- **https://martinfowler.com/bliki/BoundedContext.html**
 - **https://medium.com/@johnboldt_53034/domain-driven-design-the-ubiquitous-language-4f516a385ca4**
 - **https://redis.io/glossary/domain-driven-design-ddd/**
 - **https://medium.com/nick-tune-tech-strategy-blog/domains-subdomain-problem-solution-space-in-ddd-clearly-defined-e0b49c7b586c**
