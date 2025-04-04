@@ -14,6 +14,8 @@ The goal is to create a concise and practical personal reference, and also to he
 - [Ubiquitous Language](#section3)
 - [Domain Model](#section4)
 - [Bounded Context](#section5)
+   - [Shared kernel](#section5.1)
+   - [Client-Supplier](#section5.2)
 - [References](#references)
 
 <a name="introduction"></a>
@@ -188,7 +190,85 @@ These contexts establish clear boundaries around where specific domain models ap
 
 There's no fixed rule for determining the appropriate size of a bounded context—this requires careful architectural analysis. Ubiquitous language serves as an excellent metric for making these decisions: if terminology remains consistent across potential contexts and business processes are handled similarly, combining them might make sense. Conversely, if they differ significantly, separation allows for independent implementation without interference.
 
-Bounded contexts enable teams to work on different parts of a complex system with clear boundaries, creating focused models that precisely serve their specific business purposes while explicitly defining relationships between contexts
+Bounded contexts enable teams to work on different parts of a complex system with clear boundaries, creating focused models that precisely serve their specific business purposes while explicitly defining relationships between contexts.
+
+<a name="section5.1"></a>
+### Shared Kernel
+A Shared Kernel is a strategic pattern in Domain-Driven Design (DDD) where a specific subset of the domain model is deliberately shared between multiple bounded contexts or modules within the same domain. It serves as a central repository for common elements, including ubiquitous language definitions, domain logic, data structures, utility classes, and essential services that are needed across contexts.
+
+<img src="https://github.com/user-attachments/assets/1eade700-c674-40f2-ac52-889a1108b375" alt="acl" width="600"/>
+
+This is a case where communication becomes essential, as it theoretically violates the core principles of bounded contexts. Here, both solutions will be used beyond the proposed boundaries of their contexts. We have multiple teams working on these solutions and different requirements occurring within the same solution.
+
+The major challenge is that any change to the solution affects all involved contexts. Therefore, any modification must be thoroughly tested across all scenarios in all contexts. This situation requires careful coordination and clear communication between teams to ensure changes don't negatively impact the different parts of the system that rely on the shared components
+
+**Benefits**
+- Reduced Duplication: Eliminates the need to duplicate common domain logic and data structures in each bounded context;
+- Improved Consistency: Ensures consistent terminology and domain concepts across all contexts;
+- Unified Domain View: Provides a central location for understanding the core domain concepts
+
+**Challenges**
+- Tight Coupling: Changes in the shared kernel can impact all dependent contexts, potentially introducing regressions;
+- Complexity Management: Maintaining and evolving a shared kernel can be complex, especially when multiple teams contribute;
+- Overhead of Synchronization: Requires a robust and coordinated approach to synchronize changes across dependent contexts
+
+<a name="section5.2"></a>
+### Client-Supplier
+This model occurs when teams developing different contexts can work separately, but there's a dependency due to a shared service.
+
+- **Supplier(upstream)**: provides a service;
+- **Client(downstream)**: consumes a service
+
+#### Conformist pattern
+Let's say, we've chosen to use a third-party service that works with OAuth 2.0, since we already use services from this provider. However, we need to create our own Identity and Access Management layer to control who accesses what in our environment.
+
+Since the authentication service belongs to an external vendor who provides services to multiple clients globally, we cannot negotiate for them to adapt to our specific needs. In this relationship, the vendor has the power, which means we must conform to working with the standard they provide and adapt our solution to use this pattern
+
+#### Anti-Corruption Layer (ACL)
+An Anti-Corruption Layer (ACL) is a strategic pattern in Domain-Driven Design that serves as a protective boundary between different bounded contexts or between your domain model and external systems.
+
+The main purpose of an Anti-Corruption Layer is to:
+
+- Isolate your domain model from external influences that could corrupt its design and conceptual integrity;
+- Translate between different models by providing a two-way conversion mechanism;
+- Shield your system from changes in external systems
+
+Take as an example the Identity and Access Management layer who conforms with the third-party service of OAuth2.0. Now this layer has to provide it's service to the other teams (downstream) as it assumes the role of supplier (upstream). If the other teams do not adapt.
+
+However, here we have a situation where the solution (shared kernel), which has Team 1 and Team 2 working on it, does not accept the protocol coming from Team Identity and Access. 
+Team 3 won't change their protocol to meet the solution's demands, and the solution teams also refuse to alter their protocol to accommodate the other - which characterizes a non-conformist approach.
+
+Based on this, Teams 1 and 2 decide to create a layer that abstracts the Identity and Access protocol and converts it to their own model, thus maintaining the integrity of their solution. This is a classic example of implementing an Anti-Corruption Layer, where the teams protect their domain model from external influences by creating a translation layer between the two incompatible systems.
+
+<img src="https://github.com/user-attachments/assets/cbac5c07-d967-4255-b66a-5e0f391255da" alt="acl" width="600"/>
+
+#### Open-Host Service (OHS)
+Open-Host Service (OHS) is a pattern that stands in contrast to the Conformist approach. While in Conformism the client must adapt to the supplier's model, OHS flips this relationship by prioritizing the client's integration needs.
+
+In this pattern, the service provider creates a standardized integration layer that exposes its capabilities in a language that clients can easily consume without adaptation. This service interface is designed to be stable over time, providing a consistent protocol that multiple clients can rely on while the internal implementation remains free to evolve.
+
+The core benefit of OHS is that it reduces integration friction by having the supplier accommodate multiple clients through a well-defined, published protocol rather than forcing each client to conform to the supplier's internal model.
+
+#### Published Language pattern
+However, for the interaction above described to be consistent and reliable across different systems, the service must use a common, well-understood language to describe its inputs, outputs, and behaviors. This is where the Published Language (PL) pattern comes in.
+
+#### Separate Paths
+In this model, existing teams do not communicate or integrate their solutions. This typically happens when the cost of integration is significantly higher than developing an internal solution, making it impractical to expose the service to other contexts.
+
+For example, suppose Team 1 and Team 2 both need a service to generate reports. However, their contexts differ significantly, and there is no common pattern in their Ubiquitous Language. Even though they share the same broad goal, their specific requirements and expectations for the service vary so much that integration would be overly complex and costly. In such cases, each team may choose to develop its own independent solution rather than attempting to align their implementations.
+
+#### Big Ball of Mud
+Vaughn Vernon (2013), in his book Implementing Domain-Driven Design, mentions the Big Ball of Mud, a model found in very large systems where lacks a clear structure, consistency, or modular design—essentially, it’s a tangled mess of code that evolved without a clear plan.
+
+In this specific case, the recommendations are:
+
+- Draw a boundary around it and call it a Big Ball of Mud.
+- Do not attempt to apply any sophisticated modeling methods.
+- Be cautious, as this Ball of Mud can contaminate other contexts.
+
+### Context Map
+After creating the integrations considering all the models, this is the part of designing the context map, which is the visual representation of bounded contexts and how they integrate.
+
 
 <a name="references"></a>
 #### References
@@ -196,6 +276,8 @@ Bounded contexts enable teams to work on different parts of a complex system wit
 - **https://martinfowler.com/bliki/BoundedContext.html**
 - **https://medium.com/@johnboldt_53034/domain-driven-design-the-ubiquitous-language-4f516a385ca4**
 - **https://redis.io/glossary/domain-driven-design-ddd/**
+- **https://deviq.com/domain-driven-design/shared-kernel**
+- **https://mehmetozkaya.medium.com/shared-kernel-pattern-in-domain-driven-design-ddd-21cba2a9f92a**
 - **https://medium.com/nick-tune-tech-strategy-blog/domains-subdomain-problem-solution-space-in-ddd-clearly-defined-e0b49c7b586c**
 
 
