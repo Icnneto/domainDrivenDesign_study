@@ -16,6 +16,12 @@ The goal is to create a concise and practical personal reference, and also to he
 - [Bounded Context](#section5)
    - [Shared kernel](#section5.1)
    - [Client-Supplier](#section5.2)
+- [Tactical Design](#section6)
+   - [Architecture](#section6.1)
+   - [Value objects](#section6.2)
+   - [Entities](#section6.3)
+   - [Aggregate](#section6.4)
+   - [Domain Services](#section6.5)
 - [References](#references)
 
 <a name="introduction"></a>
@@ -269,6 +275,67 @@ In this specific case, the recommendations are:
 ### Context Map
 After creating the integrations considering all the models, this is the part of designing the context map, which is the visual representation of bounded contexts and how they integrate.
 
+<a name="section6"></a>
+## Tactical Design
+Here is where we analyze the "how." We will cover the main concepts of how to implement DDD (Domain-Driven Design), discussing Architecture and DDD Building Blocks. This is when we'll explore the foundations of our system, defining which technologies to use (for example: relational databases or NoSQL? Microservices or Service Bus?), and how they interact with each other.
+
+<a name="section6.1"></a>
+### Architecture
+It's time to design our solution! We have already mapped our domain and subdomains, defined our ubiquitous language and bounded contexts, and established how they behave and communicate with each other. 
+
+Now we need to create the design of our system - determining how each subdomain will be implemented and where the various logic components will be placed.
+
+DDD organizes the architecture in 4 (four) parts:
+
+#### 1. User interface layer
+This is the layer that contains the User Interface (GUI), Command Line Interfaces (CLI), and APIs for integration with other systems
+
+#### 2. Application layer
+This layer mediates between the user interface and domain layers. It contains no business logic and doesn't change object states but monitors and reports changes to upper layers. It organizes system tasks. In some architectures, this layer is integrated with the user interface. It can define routines that trigger system-wide updates, like a function that tallies student absences daily and updates central school records—executing business logic without implementing it.
+
+#### 3. Domain layer
+The "heart of the software" (Eric Evans, 2003) contains business concepts and rules. Business logic executes here, state changes occur, and records are created. This layer doesn't store data but provides information for the Infrastructure Layer to record.
+
+#### 4. Infrastructure layer
+This layer provides technical support capabilities to higher layers. It handles messaging, data persistence, and serves as the standard for interactions between layers (when there's no direct integration).
+
+<a name="section6.2"></a>
+### Value Objects
+Value objects are recognized by not having identifiers; we use their values to distinguish them from each other. Each is unique and immutable (created as a whole and unchangeable after creation). Vaughn Vernon (2013) has a great description of value objects:
+
+- They measure, quantify, or describe something in the domain.
+- They can be maintained as immutable.
+- They create a conceptual model of integrity by composing all attributes as a unit.
+- They are completely replaceable when a measurement or description changes.
+- They can be compared to each other by equality of values.
+
+Being immutable, a value object cannot be modified after creation as mentioned earlier. If any attribute changes, we create an entirely new value. Using a simple example, if we have x = 3, and then change to 4, we create a new x with value 4. 
+
+The same happens with value objects: we don't alter the already created object, we replace it with a completely new one. If a new object is inserted into this table, we must first verify if its values exist. 
+
+For example, if we try to insert "Name 3", "01/03/200", "Street 3", it won't be inserted because it already exists. But if we change an item to "Name 3", "01/03/200", "Street 5", then a new item enters our list. This maintains the uniqueness of the value object list, which requires us to check the object before creating it.
+
+<a name="section6.3"></a>
+### Entities
+Entities, unlike Value Objects, have identifiers and are mutable. Each entity has a unique ID that will never be used by others, making immutability impossible since the Entity can and should be changed after creation. 
+
+If a new Object is inserted into this table, unlike value objects, we don't need to verify if its values already exist. For example, if we try to insert ("Name 3", "01/03/200", "Street 3"), it will be inserted regardless of whether it already exists, because we'll have a new index. 
+
+When modifying a value, we use its index to find it in the list, and then we can make any necessary changes
+
+<a name="section6.4"></a>
+### Aggregate
+An aggregate is a collection of entities and value objects that maintain relationships with each other and have a defining boundary. 
+
+One of the basic premises of aggregates is enforced consistency, which guarantees data integrity. Only the aggregate's logic can change its state, ensuring that the business logic defining it is always maintained. No object outside the aggregate can alter its state. 
+
+External objects can read the aggregate's state but cannot change it—this can only be done by the aggregate itself. However, external entities can request that the aggregate perform actions that change its state. 
+
+Note: external entities cannot make changes directly, but they can request modifications. This is exposed in the aggregate through external interfaces that enable what we call commands. Thus, an external object "commands" something to occur.
+
+<a name="section6.5"></a>
+### Domain services
+Domain services are separately handled objects that work with various entities and aggregates whenever calculations, routine executions, and more are needed.
 
 <a name="references"></a>
 #### References
