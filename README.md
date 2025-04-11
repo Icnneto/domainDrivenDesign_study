@@ -1,5 +1,4 @@
 # Domain-Driven Design
-
 This repository provides a structured overview of **Domain-Driven Design (DDD)**, from fundamental concepts to more advanced topics. 
 The goal is to create a concise and practical personal reference, and also to help others developers to understand and apply DDD principles effectively.
 
@@ -22,6 +21,7 @@ The goal is to create a concise and practical personal reference, and also to he
    - [Entities](#section6.3)
    - [Aggregate](#section6.4)
    - [Domain Services](#section6.5)
+- [Event Storming](#section7)
 - [References](#references)
 
 <a name="introduction"></a>
@@ -336,6 +336,59 @@ Note: external entities cannot make changes directly, but they can request modif
 <a name="section6.5"></a>
 ### Domain services
 Domain services are separately handled objects that work with various entities and aggregates whenever calculations, routine executions, and more are needed.
+
+<a name="section7"></a>
+## Event Storming
+Event Storming is a collaborative modeling technique where diverse stakeholders gather to map business processes through a playful activity. Similar to Domain Storytelling, it focuses on sharing business knowledge among participants.
+
+Selecting the right team members is crucial - people who understand the domain and can contribute meaningfully to the story. A recommended team includes:
+
+- Domain experts: as many as needed to tell the complete story
+- Listeners: those eager to learn about the process (typically the development team and other interested parties)
+- Facilitator: guides the conversation, asks strategic questions, and keeps discussions focused on objectives
+
+For materials, you can use the traditional approach of colored sticky notes on walls, along with colored markers and a spacious meeting room. Alternatively, digital modeling tools like Miro or FigJam can replace physical materials.
+
+### Brainstorming
+Everything begins with a brainstorming session where domain events are documented. For this purpose, we use sticky notes with specific labels.
+
+The development flow of this activity follows the steps outlined below. We begin by mapping out all the domain events, without worrying about their order or hierarchy. As we refine the model, we gradually introduce complexity by organizing events chronologically, identifying the commands that trigger them, defining how they will be represented, outlining the rules associated with each part of the flow, and specifying the actors involved. Finally, we move towards aggregation, identifying the core domain object that connects the different parts of the process.
+
+<img src="https://github.com/user-attachments/assets/2009ddf1-c5ba-4bb3-baac-46b48c5eb271" width="600px"/>
+
+#### Events
+A domain event is something that occurred within the domain - an action that took place.
+Important note: When writing about the activity, always use past tense verbs to indicate that the action has been completed.
+
+#### Attention Points
+Once we have a clear view of the business process, we can begin to analyze and question it — identifying areas that require attention, pinpointing uncertainties about each step, understanding how things are done, what is being done, whether additional documentation is needed, or if there are any bottlenecks.
+
+#### Pivotal Events
+Phase transitions or context shifts are what we refer to as pivotal events. These moments represent significant changes in how the system operates and are marked with vertical lines on our timeline.
+
+It's important to highlight that pivotal events often signal the boundaries of distinct contexts — making them key indicators when identifying bounded contexts in Domain-Driven Design.
+
+#### Commands
+So far, our timeline shows the domain events and our concerns related to them. However, each event is the result of an action taken by someone — these actions are known as commands.
+
+Actors are typically placed next to the commands that they trigger. However, it's important to note that not all commands are initiated by actors — some are driven by system rules or internal logic.
+
+#### Policies
+Some commands aren’t triggered by actors, but by system automations. These are business rules or policies that define when a command should be executed, which in turn generates a domain event.
+
+#### Read Models
+Read models are data views—such as reports, screens, emails, or notifications—that actors use to make decisions before triggering a command.
+
+They always come before a command, serving as reference points for users to decide on their next action.
+
+#### External Systems
+In many cases, actions and events can originate from or be sent to external systems. These systems lie outside the domain we are modeling and represent integrations that interact with our bounded context.
+
+#### Aggregates
+Even with a full picture of events and commands, we still need to organize them around aggregates. Aggregates group commands and the events they produce around a central domain object, helping maintain consistency and encapsulate business logic.
+
+#### Bounded Contexts
+Finally, we connect related aggregates—those that share policies or events—into bounded contexts. These contexts define clear boundaries within our domain and help us separate different areas of the system logically and organizationally.
 
 <a name="references"></a>
 #### References
