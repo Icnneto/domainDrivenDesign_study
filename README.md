@@ -22,6 +22,7 @@ The goal is to create a concise and practical personal reference, and also to he
    - [Aggregate](#section6.4)
    - [Domain Services](#section6.5)
 - [Event Storming](#section7)
+- [Requirements Gathering](#section8)
 - [References](#references)
 
 <a name="introduction"></a>
@@ -389,6 +390,40 @@ Even with a full picture of events and commands, we still need to organize them 
 
 #### Bounded Contexts
 Finally, we connect related aggregates—those that share policies or events—into bounded contexts. These contexts define clear boundaries within our domain and help us separate different areas of the system logically and organizationally.
+
+<a name="section8"></a>
+## Requirements Gathering
+Requirements gathering is the initial phase of software development where we seek to understand the real needs of the business and users. It involves identifying and analyzing what the system should do, and why it matters. In Domain-Driven Design, this step is crucial because it helps create a shared understanding of the domain between domain experts and the development team. A well-executed requirements gathering phase sets the foundation for a solution that is aligned with business goals and user expectations.
+
+### Software Development Risks
+To understand the relevance of requirements gathering, we must first explore the risks involved in software development, as highlighted by Marty Cagan. These risks include:
+
+- Value Risk: This is the most critical risk and should be addressed first. It refers to the possibility that the customer or end user does not actually need the product being developed.
+- Business Viability Risk: This risk involves potential misalignment between the product and the broader business context, possibly leading to internal conflicts or negative impacts on the organization.
+- Usability Risk: This refers to the chance that the solution may not be adopted due to poor user experience or usability issues.
+- Technical Feasibility Risk: This involves the possibility that the development team may lack the necessary resources—technical, financial, or human—to build the solution effectively.
+
+### The Development Flow: Upstream and Downstream
+In modern product development, we structure our workflow into two main streams: Upstream and Downstream.
+
+- The Upstream process includes all the discovery and analysis stages that help transform ideas into actionable development tasks. It begins with a backlog of ideas, where we prioritize the most promising ones and conduct detailed requirements gathering to understand the problem space thoroughly.
+- The Downstream process includes the phases of actual development, implementation, testing, and deployment of the solution to end users. This is where the product transitions from concept to reality.
+
+This separation allows teams to focus on doing the right things (Upstream) and doing things right (Downstream).
+
+<img src="https://github.com/user-attachments/assets/24505d60-6510-41da-9719-738ea93b8e30" width="700px"/>
+
+### Solution Design and Requirements Gathering
+- Persona: Understanding who the end user is forms the basis of domain modeling. Identifying the persona helps define the problem more accurately and guides the creation of a relevant and usable solution.
+- Problem and Current Journey: Mapping the user's current journey is essential to uncover pain points and avoid repeating past mistakes. It provides insight into the actual challenges faced in the domain.
+- Objective: What is the desired outcome of the solution? Clarifying the business or user goal is key to defining the scope and evaluating the success of the implementation. A clear objective allows for a focused and effective design process.
+- Solution Journey: This defines the series of steps the user will take within the solution to resolve their problem. It ensures coherence between the problem and the proposed implementation.
+- Functional and Non-Functional Requirements: These requirements describe what the system should do (functional) and how it should perform (non-functional). Functional requirements include specific features or behaviors of the system, while non-functional requirements refer to constraints such as performance, security, scalability, and usability.
+   - Functional Requirements: These specify actions the system must perform, such as processing payments, managing user accounts, or generating reports.
+   - Non-Functional Requirements: These define how the system performs those actions—for example, response time under load, data encryption standards, or availability targets.
+
+
+
 
 <a name="references"></a>
 #### References
